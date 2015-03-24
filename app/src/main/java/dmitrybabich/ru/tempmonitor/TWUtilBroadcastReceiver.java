@@ -11,8 +11,6 @@ import java.util.List;
 public class TWUtilBroadcastReceiver extends BroadcastReceiver {
 
 
-	public static int prevVolume = -1;
-	private static final String TAG = "TWUtilBroadcastReceiver";
 
 
     public TWUtilBroadcastReceiver () {
@@ -21,9 +19,6 @@ public class TWUtilBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive (Context context, Intent intent) {
-
-
-		Log.d ("TWUtilBroadcastReceiver", "onReceive ");
 
 		String action = intent.getAction();
 

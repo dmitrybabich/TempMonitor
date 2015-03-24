@@ -6,16 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
-import android.tw.john.TWUtil;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Type;
 
 
 public class MainActivity extends Activity {
@@ -46,6 +40,7 @@ public class MainActivity extends Activity {
         });
 
         registerReceivers(receiver);
+        UpdateTextView();
     }
     public void OnButtonCheckServiceClick()
     {
@@ -54,6 +49,12 @@ public class MainActivity extends Activity {
         textView.setText("Is available "  + isAvailable + " ID = " +deviceID);
     }
 
+    public void UpdateTextView()
+    {
+        float temp = TemperatureStorage.getInstance().CurrentTemperature;
+        textView.setText(textView.getText() + "; "  + temp );
+        NotificationHelper.ShowNotification(temp);
+    }
 
     public void OnButtonClick()
     {
@@ -65,7 +66,7 @@ public class MainActivity extends Activity {
     }
 
     private void registerReceivers(BroadcastReceiver receiver) {
-        registerReceiver(receiver, new IntentFilter(TWUtilConst.MyNotification));
+        registerReceiver(receiver, new IntentFilter(TWUtilConst.TEMPERATURE_CHANGED));
 
     }
 
@@ -81,8 +82,7 @@ public class MainActivity extends Activity {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            textView.setText(textView.getText() + "; " + action + "=" + intent.getExtra("Temp"));
+            UpdateTextView();
         }
     };
 

@@ -2,16 +2,8 @@ package dmitrybabich.ru.tempmonitor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.util.Locale;
 
 public class MyTWUtilHandler extends android.os.Handler {
     private int b = -40;
@@ -71,7 +63,6 @@ public class MyTWUtilHandler extends android.os.Handler {
 
 
 
-
     public void handleMessage(Message paramMessage)
     {
         if (paramMessage.what != 1281)
@@ -82,7 +73,9 @@ public class MyTWUtilHandler extends android.os.Handler {
             return;
         byte[] arrayOfByte = (byte[])paramMessage.obj;
         float value=  arrayOfByte[5];
-        SendBroadcastAction(TWUtilConst.MyNotification, "Temp", value);
+        TemperatureStorage.getInstance().CurrentTemperature = value;
+        NotificationHelper.ShowNotification(value);
+        SendBroadcastAction(TWUtilConst.TEMPERATURE_CHANGED);
     }
 }
 
