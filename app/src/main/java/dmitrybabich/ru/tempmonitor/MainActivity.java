@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
         registerReceivers(receiver);
         UpdateTextView();
     }
+
     public void OnButtonCheckServiceClick()
     {
         boolean isAvailable = TWUtilEx.isTWUtilAvailable();
@@ -53,7 +54,7 @@ public class MainActivity extends Activity {
     {
         float temp = TemperatureStorage.getInstance().CurrentTemperature;
         textView.setText(textView.getText() + "; "  + temp );
-        NotificationHelper.ShowNotification(temp);
+
     }
 
     public void OnButtonClick()
@@ -62,7 +63,10 @@ public class MainActivity extends Activity {
         Message message = new Message();
         message.what = 1281;
         message.obj =   new byte[]{1,2,3,4,5,6,7 };
+        message.arg1 = 3;
+        message.arg2 = 7;
         new MyTWUtilHandler(this).handleMessage(message);
+
     }
 
     private void registerReceivers(BroadcastReceiver receiver) {
