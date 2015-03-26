@@ -12,5 +12,5 @@ public class TemperatureStorage {
         return self;
     }
 
-    public  float CurrentTemperature = -999;
+    public  float CurrentTemperature = TWUtilConst.UNKNOWN_TEMP_VALUE;
 }

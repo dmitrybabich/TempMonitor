@@ -21,21 +21,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, BackgroundService.class));
         setContentView(R.layout.activity_main);
-        textView = (TextView)findViewById(R.id.textView1);
-        Button button2 = (Button) findViewById(R.id.button2);
+        textView = (TextView)findViewById(R.id.textViewTemp);
+        Button button2 = (Button) findViewById(R.id.buttonTest);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
              OnButtonClick();
-            }
-        });
-        Button btnCheckService= (Button) findViewById(R.id.buttonCheckService);
-        btnCheckService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                OnButtonCheckServiceClick();
             }
         });
 
@@ -43,30 +34,26 @@ public class MainActivity extends Activity {
         UpdateTextView();
     }
 
-    public void OnButtonCheckServiceClick()
-    {
-        boolean isAvailable = TWUtilEx.isTWUtilAvailable();
-        String deviceID = TWUtilEx.GetDeviceID();
-        textView.setText("Is available "  + isAvailable + " ID = " +deviceID);
-    }
+
 
     public void UpdateTextView()
     {
-        float temp = TemperatureStorage.getInstance().CurrentTemperature;
-        textView.setText(textView.getText() + "; "  + temp );
+        textView.setText(NotificationHelper.GetNotificationText());
 
     }
 
     public void OnButtonClick()
     {
-        Toast.makeText(this, "Зачем вы нажали?", Toast.LENGTH_SHORT).show();
+        boolean isAvailable = TWUtilEx.isTWUtilAvailable();
+        String deviceID = TWUtilEx.GetDeviceID();
+        String text = "Is available "  + isAvailable + " ID = " +deviceID;
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         Message message = new Message();
         message.what = 1281;
         message.obj =   new byte[]{1,2,3,4,5,6,7 };
         message.arg1 = 3;
         message.arg2 = 7;
         new MyTWUtilHandler(this).handleMessage(message);
-
     }
 
     private void registerReceivers(BroadcastReceiver receiver) {

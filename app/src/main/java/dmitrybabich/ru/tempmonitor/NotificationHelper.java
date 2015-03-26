@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.util.Log;
@@ -42,13 +43,12 @@ static  Context context;
         notifier.notify(1, notification);
     }*/
 
-    public static void ShowNotification(float temp) {
+    public static void ShowNotification() {
         if (context == null)
             context =  App.getInstance().getApplicationContext();
         if (mFloatView == null)
             createFloatView();
-        int text = Math.round(temp);
-        mFloatView.setText(text +" ºC");
+        mFloatView.setText(GetNotificationText());
     }
 
 
@@ -66,13 +66,7 @@ static  Context context;
         LayoutInflater inflater = (LayoutInflater)context. getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View myView = inflater.inflate(R.layout.overlay_window, null);
         mFloatView = (Button) myView.findViewById(R.id.btnFload);
-        myView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d("Test", "touch me");
-                return false;
-            }
-        });
+
 
         // Add layout to window manager
         wm.addView(mFloatView, params);*/
@@ -95,7 +89,16 @@ static  Context context;
         View oView = layoutInflater.inflate(R.layout.overlay_window, null);
         LinearLayout mFloatLayout = (LinearLayout) oView;
         mWindowManager.addView(mFloatLayout, wmParams);
-        mFloatView = (TextView) mFloatLayout.findViewById(R.id.taskbarTemp);
+        mFloatView = (TextView) mFloatLayout.findViewById(R.id.textTemp);
+        mFloatView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                return false;
+            }
+        });
         mFloatLayout.measure(android.view.View.MeasureSpec.makeMeasureSpec(0, 0), android.view.View.MeasureSpec.makeMeasureSpec(0, 0));
         int statusbar = getStatusBarHeight(context);
         if (Lx != -1 && Ly != -1) {
@@ -124,5 +127,12 @@ static  Context context;
         return j;
     }
 
+    public static String GetNotificationText() {
+        float currentTemp = TemperatureStorage.getInstance().CurrentTemperature;
+        if (currentTemp == TWUtilConst.UNKNOWN_TEMP_VALUE)
+            return "?";
+        int text = Math.round(currentTemp);
+        return text +"º";
+    }
 }
 
