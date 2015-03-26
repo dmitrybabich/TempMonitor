@@ -74,8 +74,8 @@ public class MyTWUtilHandler extends android.os.Handler {
         byte[] arrayOfByte = (byte[])paramMessage.obj;
         float value=  arrayOfByte[5];
         TemperatureStorage.getInstance().CurrentTemperature = value;
-
         NotificationHelper.ShowNotification(value);
+        DataProvider.SaveTemp(value);
         SendBroadcastAction(TWUtilConst.TEMPERATURE_CHANGED);
     }
 }
