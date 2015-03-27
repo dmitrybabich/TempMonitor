@@ -7,10 +7,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="8 С"
+        android:text="8°"
         android:id="@+id/textTemp"
         android:layout_gravity="center_horizontal"
-        android:padding="4dp"
-        android:background="#ffb71c1c"
-        android:textStyle="bold" />
+        android:background="#8db71c1c"
+        android:textStyle="bold"
+        android:paddingLeft="12dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
 </LinearLayout>

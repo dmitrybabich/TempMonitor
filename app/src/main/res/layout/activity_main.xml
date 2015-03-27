@@ -32,5 +32,22 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="0dp"
             android:layout_alignParentLeft="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh"
+            android:id="@+id/buttonRefreshTemp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manual"
+            android:id="@+id/buttonManualRefresh"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </RelativeLayout>

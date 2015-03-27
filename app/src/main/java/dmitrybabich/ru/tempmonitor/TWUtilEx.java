@@ -11,6 +11,13 @@ import android.util.Log;
 import java.lang.reflect.Type;
 
 public class TWUtilEx {
+
+    static TWUtilEx self;
+    public  static TWUtilEx GetCurrent()
+    {
+        return self;
+    }
+
 	private Context context;
 	private Handler mHandler;
 
@@ -57,6 +64,7 @@ public class TWUtilEx {
 		mTWUtil = new TWUtil();
 		int result = mTWUtil.open(twutil_contexts);
 		if ( result == 0) {
+            self = this;
 			isTWUtilOpened = true;
 			mTWUtil.start ();
 			mTWUtil.addHandler (TWUTIL_HANDLER, mTWUtilHandler);
@@ -75,6 +83,21 @@ public class TWUtilEx {
 		}
 	}
 
+    public Boolean  RefreshTemp()
+    {
+
+        if (mTWUtil == null)
+            return false;
+        try {
+            mTWUtil.write(1281, 255);
+return true;
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return false;
+    }
 
 
 	public static String GetDeviceID () {

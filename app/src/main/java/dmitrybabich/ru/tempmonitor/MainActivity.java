@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 
 public class MainActivity extends Activity {
 
@@ -29,11 +31,40 @@ public class MainActivity extends Activity {
              OnButtonClick();
             }
         });
+        Button buttonRefreshTemp = (Button) findViewById(R.id.buttonRefreshTemp);
+        buttonRefreshTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnRefreshTemButtonClick();
+            }
+        });
+
+        Button buttonManualRefresh = (Button) findViewById(R.id.buttonManualRefresh);
+        buttonManualRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnManualRefreshTemButtonClick();
+            }
+        });
 
         registerReceivers(receiver);
         UpdateTextView();
     }
 
+    private void OnManualRefreshTemButtonClick() {
+        NotificationHelper.ShowNotification();
+    }
+
+    private void OnRefreshTemButtonClick() {
+        TWUtilEx current =TWUtilEx.GetCurrent();
+        if (current == null)
+        {
+            Toast.makeText(this, "Current is null", Toast.LENGTH_LONG).show();
+            return;
+        }
+        boolean result = current.RefreshTemp();
+        Toast.makeText(this, "Result =" + result, Toast.LENGTH_LONG).show();
+    }
 
 
     public void UpdateTextView()
@@ -42,6 +73,7 @@ public class MainActivity extends Activity {
 
     }
 
+    Random r = new Random();
     public void OnButtonClick()
     {
         boolean isAvailable = TWUtilEx.isTWUtilAvailable();
@@ -50,7 +82,8 @@ public class MainActivity extends Activity {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
         Message message = new Message();
         message.what = 1281;
-        message.obj =   new byte[]{1,2,3,4,5,6,7 };
+        byte value = (byte)r.nextInt(100);
+        message.obj =   new byte[]{1,2,3,4,5,value,7 };
         message.arg1 = 3;
         message.arg2 = 7;
         new MyTWUtilHandler(this).handleMessage(message);
