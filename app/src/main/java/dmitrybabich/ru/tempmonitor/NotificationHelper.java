@@ -1,25 +1,16 @@
 package dmitrybabich.ru.tempmonitor;
 
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
 
 /**
  * Created by babich on 3/23/2015.
@@ -99,6 +90,7 @@ static  Context context;
                 return false;
             }
         });
+        ApplyFloatViewAppearanceSettings();
         mFloatLayout.measure(android.view.View.MeasureSpec.makeMeasureSpec(0, 0), android.view.View.MeasureSpec.makeMeasureSpec(0, 0));
         int statusbar = getStatusBarHeight(context);
         if (Lx != -1 && Ly != -1) {
@@ -111,6 +103,26 @@ static  Context context;
             }
             mWindowManager.updateViewLayout(mFloatLayout, wmParams);
         }
+    }
+
+    private static void ApplyFloatViewAppearanceSettings() {
+        NotificationAppearanceSettings settings = NotificationAppearanceSettings.GetCurrent();
+        if (settings.BackColor != -1)
+            mFloatView.setBackgroundColor(settings.BackColor);
+        if (settings.ForeColor != -1)
+            mFloatView.setTextColor(settings.ForeColor);
+        if (settings.FontSize != -1)
+            mFloatView.setTextSize(settings.FontSize);
+        int[] paddings = new int[]{mFloatView.getPaddingLeft(),mFloatView.getPaddingTop(),mFloatView.getPaddingRight(),mFloatView.getPaddingBottom() };
+        if (settings.PaddingLeft != -1)
+            paddings[0] = settings.PaddingLeft;
+        if (settings.PaddingTop != -1)
+            paddings[1] = settings.PaddingTop;
+        if (settings.PaddingRight != -1)
+            paddings[2] = settings.PaddingRight;
+        if (settings.PaddingBottom != -1)
+            paddings[3] = settings.PaddingBottom;
+        mFloatView.setPadding(paddings[0],paddings[1],paddings[2],paddings[3]);
     }
 
     public static int getStatusBarHeight(Context context) {
@@ -133,6 +145,11 @@ static  Context context;
             return "?";
         int text = Math.round(currentTemp);
         return text +"º";
+    }
+
+    public static void RefreshNotificationAppearance() {
+        ShowNotification();
+        ApplyFloatViewAppearanceSettings();
     }
 }
 

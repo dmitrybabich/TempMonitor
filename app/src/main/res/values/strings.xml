@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Temperature Monitor</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_custom_settings">Settings</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="changebackgroundbuttoncaption">Change background..</string>
+    <string name="changeforegroundbutton">Change foreground...</string>
+    <string name="fontsize">Font size</string>
+    <string name="leftpadding">Left Padding</string>
+    <string name="rightpadding">Right Padding</string>
+    <string name="toppadding">Top Padding</string>
+    <string name="bottompadding">Bottom Padding</string>
+    <string name="tempisnotavailable">Please change your climat control settings to see the actual temperature</string>
 </resources>

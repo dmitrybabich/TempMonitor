@@ -23,31 +23,24 @@
             android:textStyle="bold"
             android:textSize="100dp" />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test"
-            android:id="@+id/buttonTest"
+            android:id="@+id/imageButtonSettings"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="0dp"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_settings"
+            android:alpha="100" />
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Refresh"
-            android:id="@+id/buttonRefreshTemp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/tempisnotavailable"
+            android:id="@+id/textViewTempIsNotAvailable"
+            android:layout_alignBottom="@+id/imageButtonSettings"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/imageButtonSettings" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Manual"
-            android:id="@+id/buttonManualRefresh"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </RelativeLayout>
