@@ -12,7 +12,7 @@ public class MyTWUtilHandler extends android.os.Handler {
     private Context mContext;
 
 
-    private void SendBroadcastAction(String action) {
+    private static void SendBroadcastAction(String action) {
         Log.d ("TWUtilEx", "SendBroadcastAction ");
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -73,6 +73,10 @@ public class MyTWUtilHandler extends android.os.Handler {
             return;
         byte[] arrayOfByte = (byte[])paramMessage.obj;
         float value=  arrayOfByte[5];
+       ProcessTempChanged(value);
+    }
+
+    public static void ProcessTempChanged(float value) {
         TemperatureStorage.getInstance().CurrentTemperature = value;
         DataProvider.SaveTemp(value);
         NotificationHelper.ShowNotification();

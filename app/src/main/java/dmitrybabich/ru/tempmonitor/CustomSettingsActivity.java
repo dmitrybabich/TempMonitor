@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +27,26 @@ public class CustomSettingsActivity extends Activity implements SeekBar.OnSeekBa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_custom_settings);
+
+        Button btnTest =(Button) findViewById(R.id.buttonTest);
+        btnTest.setVisibility(View.INVISIBLE);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyTWUtilHandler.ProcessTempChanged(10);
+
+            }
+        });
+
+        TextView textView =(TextView)findViewById(R.id.textViewHyperlink);
+        textView.setClickable(true);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='http://goo.gl/B2M9Fb' >4pda</a>";
+        textView.setText(Html.fromHtml(text));
+
+
         Button btnBackground =(Button) findViewById(R.id.buttonSetBackground);
         btnBackground.setOnClickListener(new View.OnClickListener() {
             @Override

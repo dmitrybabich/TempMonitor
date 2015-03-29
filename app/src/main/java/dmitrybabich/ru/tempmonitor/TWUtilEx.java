@@ -45,7 +45,7 @@ public class TWUtilEx {
 
 
 	protected boolean isTWUtilOpened;
-	private Handler mTWUtilHandler;
+	public MyTWUtilHandler mTWUtilHandler;
 
 
 	public TWUtilEx(Context context) {

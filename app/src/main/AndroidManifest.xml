@@ -40,6 +40,10 @@
             android:name=".CustomSettingsActivity"
             android:label="@string/title_activity_custom_settings" >
         </activity>
+        <activity
+            android:name=".ExceptionActivity"
+            android:label="@string/title_activity_exception" >
+        </activity>
     </application>
 
 </manifest>
