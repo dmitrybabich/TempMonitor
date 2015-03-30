@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,9 +36,26 @@ static  Context context;
         notifier.notify(1, notification);
     }*/
 
+
+    static Handler handler;
+
+
     public static void ShowNotification() {
         if (context == null)
-            context =  App.getInstance().getApplicationContext();
+            context = App.getInstance().getApplicationContext();
+        if (handler == null)
+            handler = new Handler(context .getMainLooper());
+        handler.post( new Runnable() {
+            @Override
+            public void run() {
+                UpdateFloatViewCore();
+            }
+        } );
+
+
+    }
+
+    private static void UpdateFloatViewCore() {
         if (mFloatView == null)
             createFloatView();
         mFloatView.setText(GetNotificationText());

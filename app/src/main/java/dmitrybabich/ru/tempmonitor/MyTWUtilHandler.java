@@ -58,6 +58,7 @@ public class MyTWUtilHandler extends android.os.Handler {
     public MyTWUtilHandler(Context paramContext)
     {
         this.mContext = paramContext;
+
     }
 
 

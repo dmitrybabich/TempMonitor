@@ -30,7 +30,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_action_settings"
-            android:alpha="100" />
+            android:alpha="100"
+            android:padding="20dp" />
 
         <TextView
             android:layout_width="wrap_content"

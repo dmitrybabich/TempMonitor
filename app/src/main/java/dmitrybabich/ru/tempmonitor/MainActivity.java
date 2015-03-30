@@ -19,6 +19,8 @@ public class MainActivity extends Activity {
 
     TextView textView;
 TextView textViewTempIsNotAvailable;
+    ImageButton btnSettings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +28,25 @@ TextView textViewTempIsNotAvailable;
         setContentView(R.layout.activity_main);
         textView = (TextView)findViewById(R.id.textViewTemp);
         textViewTempIsNotAvailable = (TextView)findViewById(R.id.textViewTempIsNotAvailable);
+
         registerReceivers(receiver);
         UpdateTextView();
-        ImageButton btnSettings = (ImageButton)findViewById(R.id.imageButtonSettings);
+        btnSettings = (ImageButton)findViewById(R.id.imageButtonSettings);
+        btnSettings.setVisibility(View.INVISIBLE);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnSettingsButtonClick();
             }
         });
+
+
+       /* textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              MyTWUtilHandler.ProcessTempChanged(-4);
+            }
+        });*/
     }
 
     private void OnSettingsButtonClick() {
@@ -64,6 +76,7 @@ TextView textViewTempIsNotAvailable;
         @Override
         public void onReceive(Context context, Intent intent) {
             textViewTempIsNotAvailable.setVisibility(View.INVISIBLE);
+            btnSettings.setVisibility(View.VISIBLE);
             UpdateTextView();
         }
     };
