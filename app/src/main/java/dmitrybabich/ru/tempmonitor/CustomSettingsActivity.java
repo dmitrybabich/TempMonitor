@@ -96,11 +96,11 @@ public class CustomSettingsActivity extends Activity implements SeekBar.OnSeekBa
         {
             switch (seekBar.getId())
             {
-                case R.id.seekBarFontSize: NotificationAppearanceSettings.GetCurrent().FontSize = progress; break;
-                case R.id.seekBarLeftPadding: NotificationAppearanceSettings.GetCurrent().PaddingLeft = progress; break;
-                case R.id.seekBarRightPadding: NotificationAppearanceSettings.GetCurrent().PaddingRight = progress; break;
-                case R.id.seekBarTopPadding: NotificationAppearanceSettings.GetCurrent().PaddingTop = progress; break;
-                case R.id.seekBarBottomPadding: NotificationAppearanceSettings.GetCurrent().PaddingBottom = progress; break;
+                case R.id.seekBarFontSize: NotificationAppearanceSettings.GetCurrent().SetFontSize (progress); break;
+                case R.id.seekBarLeftPadding: NotificationAppearanceSettings.GetCurrent().SetPaddingLeft (progress); break;
+                case R.id.seekBarRightPadding: NotificationAppearanceSettings.GetCurrent().SetPaddingRight (progress); break;
+                case R.id.seekBarTopPadding: NotificationAppearanceSettings.GetCurrent().SetPaddingTop (progress); break;
+                case R.id.seekBarBottomPadding: NotificationAppearanceSettings.GetCurrent().SetPaddingBottom (progress); break;
             }
             NotificationHelper.RefreshNotificationAppearance();
         }

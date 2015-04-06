@@ -13,4 +13,5 @@
     <string name="bottompadding">Bottom Padding</string>
     <string name="tempisnotavailable">Please change your climat control settings to see the actual temperature</string>
     <string name="title_activity_exception">ExceptionActivity</string>
+    <string name="title_activity_log">LogActivity</string>
 </resources>

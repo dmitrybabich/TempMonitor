@@ -63,4 +63,29 @@ public class NotificationAppearanceSettings {
         ForeColor = value;
         SetSettings(APP_PREFERENCES_ForeColor, value);
     }
+
+    public void SetFontSize(int progress) {
+        FontSize = progress;
+        SetSettings(APP_PREFERENCES_FontSize, progress);
+    }
+
+    public void SetPaddingLeft(int progress) {
+        PaddingLeft = progress;
+        SetSettings(APP_PREFERENCES_PaddingLeft, progress);
+    }
+
+    public void SetPaddingRight(int progress) {
+        PaddingRight = progress;
+        SetSettings(APP_PREFERENCES_PaddingRight, progress);
+    }
+
+    public void SetPaddingTop(int progress) {
+        PaddingTop = progress;
+        SetSettings(APP_PREFERENCES_PaddingTop, progress);
+    }
+
+    public void SetPaddingBottom(int progress) {
+        PaddingBottom = progress;
+        SetSettings(APP_PREFERENCES_PaddingBottom, progress);
+    }
 }

@@ -55,6 +55,22 @@ public class MyTWUtilHandler extends android.os.Handler {
 
 
 
+    private void SendBroadcastAction(String action, Message paramMessage) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        if ( paramMessage != null ) {
+            intent.putExtra("What", paramMessage.what);
+            intent.putExtra("Arg1", paramMessage.arg1);
+            intent.putExtra("Arg2", paramMessage.arg2);
+            if (paramMessage.obj instanceof  byte[]) {
+                intent.putExtra("Bytes",(byte[]) paramMessage.obj);
+            }
+        }
+        intent.setAction(action);
+        App.getInstance ().sendBroadcast(intent);
+    }
+
+
     public MyTWUtilHandler(Context paramContext)
     {
         this.mContext = paramContext;
@@ -64,17 +80,41 @@ public class MyTWUtilHandler extends android.os.Handler {
 
 
 
+    float temperature = TWUtilConst.UNKNOWN_TEMP_VALUE;
+
     public void handleMessage(Message paramMessage)
     {
+        SendBroadcastAction(TWUtilConst.MESSAGE_RECIEVED, paramMessage);
         if (paramMessage.what != 1281)
             return;
-        if (paramMessage.arg1 != 3)
-            return;
-        if (paramMessage.arg2 != 7)
-            return;
-        byte[] arrayOfByte = (byte[])paramMessage.obj;
-        float value=  arrayOfByte[5];
-       ProcessTempChanged(value);
+        if (ExtractTemp(paramMessage))
+            ProcessTempChanged(temperature);
+    }
+
+
+    private boolean ExtractTemp(Message paramMessage) {
+        try {
+            byte[] bytes = (byte[]) paramMessage.obj;
+            int i1 = 0x7f & bytes[0];
+            if ((0x80 & bytes[0]) == 128) {
+                b = -i1;
+            } else {
+                b = i1;
+            }
+            if (b <= -40 || b >= 127)            {           } else {
+                temperature = Integer.valueOf(b);
+                return true;
+            }
+            byte temp = bytes[5];
+            if (temp <= -40 || temp >= 86) {}  else {
+                temperature = Integer.valueOf(temp);
+                return true;
+            }
+        }
+        finally {
+
+        }
+        return false;
     }
 
     public static void ProcessTempChanged(float value) {

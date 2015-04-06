@@ -11,4 +11,6 @@ public class TWUtilConst {
     public static final float UNKNOWN_TEMP_VALUE = -999;
 
     public static final String TEMPERATURE_CHANGED = "TEMPERATURE_CHANGED";
+    public static final String MESSAGE_RECIEVED = "MESSAGE_RECIEVED";
+
 }

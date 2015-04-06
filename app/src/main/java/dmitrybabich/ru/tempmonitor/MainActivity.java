@@ -40,13 +40,25 @@ TextView textViewTempIsNotAvailable;
             }
         });
 
+        btnSettings.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+                public boolean onLongClick(View v) {
+               OnLongSettingsClick();
+return true;
+            }
+        });
 
-       /* textView.setOnClickListener(new View.OnClickListener() {
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              MyTWUtilHandler.ProcessTempChanged(-4);
+              MyTWUtilHandler.ProcessTempChanged(TWUtilConst.UNKNOWN_TEMP_VALUE);
             }
-        });*/
+        });
+    }
+
+    private void OnLongSettingsClick() {
+        Intent myIntent = new Intent(this, LogActivity.class);
+        this.startActivity(myIntent);
     }
 
     private void OnSettingsButtonClick() {
