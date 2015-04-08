@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,16 +34,16 @@ TextView textViewTempIsNotAvailable;
 
         registerReceivers(receiver);
         UpdateTextView();
-        btnSettings = (ImageButton)findViewById(R.id.imageButtonSettings);
+     /*   btnSettings = (ImageButton)findViewById(R.id.imageButtonSettings);
         btnSettings.setVisibility(View.INVISIBLE);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnSettingsButtonClick();
             }
-        });
+        });*/
 
-        btnSettings.setOnLongClickListener(new View.OnLongClickListener() {
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
                 public boolean onLongClick(View v) {
                OnLongSettingsClick();
@@ -56,12 +59,24 @@ return true;
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.add("Test");
+        return true;
+    }
+
+
+
+
     private void OnLongSettingsClick() {
         Intent myIntent = new Intent(this, LogActivity.class);
         this.startActivity(myIntent);
     }
 
     private void OnSettingsButtonClick() {
+        NotificationHelper.ShowNotification();
         Intent myIntent = new Intent(this, CustomSettingsActivity.class);
         this.startActivity(myIntent);
     }
@@ -73,6 +88,21 @@ return true;
     private void registerReceivers(BroadcastReceiver receiver) {
         registerReceiver(receiver, new IntentFilter(TWUtilConst.TEMPERATURE_CHANGED));
 
+    }
+
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                OnSettingsButtonClick();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

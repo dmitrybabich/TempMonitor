@@ -126,6 +126,8 @@ static  Context context;
     }
 
     private static void ApplyFloatViewAppearanceSettings() {
+        if (mFloatView == null)
+            return;
         NotificationAppearanceSettings settings = NotificationAppearanceSettings.GetCurrent();
         if (settings.BackColor != -1)
             mFloatView.setBackgroundColor(settings.BackColor);

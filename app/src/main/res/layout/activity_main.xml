@@ -23,7 +23,7 @@
             android:textStyle="bold"
             android:textSize="100dp" />
 
-        <ImageButton
+        ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButtonSettings"
@@ -39,9 +39,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/tempisnotavailable"
             android:id="@+id/textViewTempIsNotAvailable"
-            android:layout_alignBottom="@+id/imageButtonSettings"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/imageButtonSettings" />
+            android:layout_alignParentLeft="true" />
 
     </RelativeLayout>
 </RelativeLayout>

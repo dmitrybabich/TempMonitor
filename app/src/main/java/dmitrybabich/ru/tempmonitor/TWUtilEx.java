@@ -39,7 +39,7 @@ public class TWUtilEx {
     };
 
 
-	private TWUtil mTWUtil;
+	public TWUtil mTWUtil;
 
 	protected static final String TWUTIL_HANDLER = "TWUtilHandler";
 

@@ -2,12 +2,20 @@ package dmitrybabich.ru.tempmonitor;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class App extends Application {
@@ -41,26 +49,43 @@ public class App extends Application {
 
     public void handleUncaughtException (Thread thread, Throwable e)
     {
-     //   e.printStackTrace();
-        /*Intent intent =               new Intent(                       this,                       ExceptionActivity.class );
-        intent.putExtra( "Message", e.getMessage() );
-        intent.putExtra( "CallStack", e.getStackTrace() );
-        startActivity( intent );
-        */
+        e.printStackTrace();
 
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("text/html");
-        emailIntent.putExtra(android.content.Intent.EXTRA_TITLE, "Exception1");
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Exception");
 
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
         String stack = sw.toString();
-        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, e.getMessage() + ";" + stack);
-        emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(emailIntent);
+        DateFormat df = new SimpleDateFormat("MM_dd_yyyy_HH_mm_ss");
+
+
+        Date today = Calendar.getInstance().getTime();
+
+        String reportDate = df.format(today);
+       generateNoteOnSD(reportDate +".txt" ,stack);
+
         System.exit(0);
+    }
+
+
+    public void generateNoteOnSD(String sFileName, String sBody){
+        try
+        {
+            File root = new File(Environment.getExternalStorageDirectory(), "TMExceptions");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File gpxfile = new File(root, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        }
+        catch(IOException e)
+        {
+
+        }
     }
 
 }
